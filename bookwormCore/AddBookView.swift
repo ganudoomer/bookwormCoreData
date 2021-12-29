@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct AddBookView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
@@ -15,7 +16,7 @@ struct AddBookView: View {
     @State private var title = ""
     @State private var author = ""
     @State private var ratiing = 3
-    @State private var genre = ""
+    @State private var genre = "Fantasy"
     @State private var review = ""
     
     let genres  = ["Fantasy","History","Kids","Mystery","Poetry","Thriller"]
@@ -48,7 +49,8 @@ struct AddBookView: View {
                         newBook.ratings = Int16(self.ratiing) 
                         newBook.genre = self.genre
                         newBook.review = self.review
-                        
+                        newBook.date = Date()
+    
                         try? self.moc.save()
                         self.presentationMode.wrappedValue.dismiss()
                     }

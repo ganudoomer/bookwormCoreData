@@ -27,9 +27,10 @@ struct ContentView: View {
                     NavigationLink(destination:BookView(book: book) ){
                         EmojiRatingView(rating: book.ratings)
                         VStack(alignment: .leading){
-                            Text(book.title ?? "Unknown").font(.headline)
+                            Text(book.title ?? "Unknown").font(.headline).foregroundColor(book.ratings == 1 ? .red : .white )
                             Text(book.author ?? "Unkown author").foregroundColor(.secondary)
                         }
+                    
                     }
                     
                 }.onDelete(perform: { indexSet in

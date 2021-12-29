@@ -25,9 +25,24 @@ struct RatingView: View {
             ForEach(1..<maximumRating + 1){ number in
                 self.image(for: number).foregroundColor(number > self.rating ? self.offColor : self.onColor).onTapGesture {
                     self.rating = number
+                }.accessibilityRemoveTraits(.isImage)
+                    .accessibilityAddTraits(number > rating ? .isButton : [.isButton,.isSelected])
+                    .accessibilityLabel("\(number == 1 ? "1 stars": "\(number) stars")")
+            }
+        }.accessibilityElement()
+            .accessibilityLabel("Rating")
+            .accessibilityValue("\(rating == 1 ? "1 stars": "\(rating) stars")")
+            .accessibilityAdjustableAction { direction in
+                switch direction {
+                case .increment:
+                    if rating < maximumRating { rating += 1  }
+                case .decrement:
+                    if rating < maximumRating { rating -= 1  }
+                default:
+                    break
+                    
                 }
             }
-        }
     }
     func image(for number: Int) -> Image {
         if number > rating {
